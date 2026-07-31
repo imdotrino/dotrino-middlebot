@@ -5,10 +5,19 @@
 > producto **todavía no está implementado**; nada de lo que aquí se describe se
 > puede instalar aún. La página lo dice en voz alta.
 
-Un agente de IA que corre en tu máquina y **no habla directo con ninguna
-inteligencia artificial**: cada prompt pasa antes por un **auditor** que corre en
-**otra máquina tuya**, revisa qué sale, tacha lo que no debe salir y deja
-constancia. *Nada que no deba salir sale.*
+**El problema que resuelve: que no salga información sensible de la empresa
+dentro de un prompt a una inteligencia artificial.**
+
+Un agente de IA que corre en la máquina de quien trabaja y **no habla directo con
+ninguna inteligencia artificial**: cada prompt pasa antes por un **auditor** —un
+clasificador de prompts del lado del usuario— que corre en **otra máquina
+designada por el acta**, y que tacha lo sensible, pregunta cuando hay dudas,
+detiene lo que no puede salir y deja constancia firmada. *Nada que no deba salir
+sale.*
+
+Nace para el caso de empresa (línea [Dotrino
+Enterprise](https://dotrino.com/enterprise)), y sirve igual para una persona con
+dos máquinas.
 
 Parte del ecosistema [Dotrino](https://dotrino.com/) · MIT.
 
