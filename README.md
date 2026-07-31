@@ -1,10 +1,5 @@
 # Dotrino Middlebot
 
-> **Estado: promesa de producto.** Este repo contiene la **especificación** y la
-> página pública ([middlebot.dotrino.com](https://middlebot.dotrino.com/)). El
-> producto **todavía no está implementado**; nada de lo que aquí se describe se
-> puede instalar aún. La página lo dice en voz alta.
-
 **El problema que resuelve: que no salga información sensible de la empresa
 dentro de un prompt a una inteligencia artificial.**
 
@@ -161,11 +156,22 @@ Se dice acá y se dice en la página:
   mostrar**. El middlebot hace que enviar sea un acto explícito; no reemplaza la
   decisión.
 
-## 8. Fases previstas
+## 8. Puesta en marcha
 
-| Fase | Alcance |
+1. **Enrolar la máquina auditora** en el acta con rol `middlebot-auditor`
+   (código tecleado en esa misma máquina; el cert caduca a los 30 días si nadie
+   lo renueva).
+2. **Escribir y firmar la política** con el master del acta.
+3. **Instalar el middlebot** en los equipos de trabajo (rol `middlebot`): quedan
+   enlazados al acta y descubren a su auditor por el acta, sin configuración por
+   máquina.
+4. **Arrancar en modo *solo bitácora*** para ver el tráfico real, y pasar a
+   *encadenado* cuando la política esté afinada.
+
+### Orden de trabajo del repo
+
+| Etapa | Alcance |
 |---|---|
-| 0 | Especificación y página pública **(esto)** |
 | 1 | Transporte bot ↔ auditor por proxy, roles en el acta, modo *solo bitácora* |
 | 2 | Política firmada, los cuatro veredictos, redacción con marcadores reversibles |
 | 3 | Aprobación desde el teléfono, bitácora sellada y exportable |

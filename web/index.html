@@ -7,7 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Middlebot — un revisor entre tú y la inteligencia artificial | Dotrino</title>
-<meta name="description" content="Controla que no salga información sensible de tu empresa dentro de una pregunta a una inteligencia artificial: cada prompt pasa antes por una máquina que tú designas, que tacha lo sensible, pregunta cuando hay dudas y deja constancia. En desarrollo." />
+<meta name="description" content="Controla que no salga información sensible de tu empresa dentro de una pregunta a una inteligencia artificial: cada prompt pasa antes por una máquina que tú designas, que tacha lo sensible, pregunta cuando hay dudas y deja constancia. Código abierto, on premise." />
 <link rel="canonical" href="https://middlebot.dotrino.com/" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="es_ES" />
@@ -139,13 +139,13 @@
     <p class="tagline" data-lang="en">Keep <b>your company's sensitive information from leaving</b> inside a question to an artificial intelligence. The assistant works on your computer and never talks straight to an AI: what you ask goes first through a machine you designate.</p>
     <p class="claim" data-lang="es">Nada que no deba salir sale.</p>
     <p class="claim" data-lang="en">Nothing that shouldn't leave, leaves.</p>
-    <p class="badge" data-lang="es">En desarrollo</p>
-    <p class="badge" data-lang="en">In development</p>
-  </div>
-
-  <div class="card warn">
-    <p data-lang="es"><strong>Esto todavía no existe.</strong> Es la descripción completa de algo que estamos construyendo: aún no hay nada que instalar. La publicamos así, entera y por adelantado, para que se pueda discutir antes de escribir el código. Cuando se pueda usar, se anuncia aquí.</p>
-    <p data-lang="en"><strong>This doesn't exist yet.</strong> It's the full description of something we're building: there is nothing to install yet. We publish it whole and up front so it can be discussed before the code is written. When it can be used, it will be announced here.</p>
+    <p class="badge" data-lang="es">Código abierto · MIT · on premise</p>
+    <p class="badge" data-lang="en">Open source · MIT · on premise</p>
+    <p style="margin-top:22px">
+      <a class="cta" href="https://dotrino.com/enterprise" data-lang="es">Solicita una demo</a>
+      <a class="cta" href="https://dotrino.com/enterprise" data-lang="en">Request a demo</a>
+      <a class="cta ghost" href="https://github.com/imdotrino/dotrino-middlebot">GitHub</a>
+    </p>
   </div>
 
   <!-- El problema -->
@@ -346,44 +346,34 @@
     </ul>
   </section>
 
-  <!-- Estado -->
+  <!-- Puesta en marcha -->
   <section>
-    <h2 data-lang="es">En qué va</h2>
-    <h2 data-lang="en">Where it stands</h2>
-    <table>
-      <tr><th data-lang="es">Etapa</th><th data-lang="en">Stage</th><th data-lang="es">Estado</th><th data-lang="en">Status</th></tr>
-      <tr>
-        <td data-lang="es">Especificación y esta página</td><td data-lang="en">Specification and this page</td>
-        <td data-lang="es"><b>listo</b></td><td data-lang="en"><b>done</b></td>
-      </tr>
-      <tr>
-        <td data-lang="es">Enlace entre el asistente y el revisor, con «solo mirar»</td>
-        <td data-lang="en">Link between assistant and reviewer, with "watch only"</td>
-        <td data-lang="es">siguiente</td><td data-lang="en">next</td>
-      </tr>
-      <tr>
-        <td data-lang="es">Reglas firmadas, las cuatro decisiones y el tachado reversible</td>
-        <td data-lang="en">Signed rules, the four decisions and reversible redaction</td>
-        <td data-lang="es">previsto</td><td data-lang="en">planned</td>
-      </tr>
-      <tr>
-        <td data-lang="es">Aprobar desde el teléfono y constancia sellada</td>
-        <td data-lang="en">Approve from your phone, and a sealed record</td>
-        <td data-lang="es">previsto</td><td data-lang="en">planned</td>
-      </tr>
-      <tr>
-        <td data-lang="es">Página local completa y servicios de IA intercambiables</td>
-        <td data-lang="en">Full local page and interchangeable AI services</td>
-        <td data-lang="es">previsto</td><td data-lang="en">planned</td>
-      </tr>
-    </table>
-    <p data-lang="es">¿Te sirve, te falta algo, lo harías distinto? Escríbelo en el <a href="https://discord.gg/D648uq7cth">Discord</a> o en el repositorio, ahora que todavía es un texto y no código.</p>
-    <p data-lang="en">Useful? Missing something? Would you do it differently? Say so on <a href="https://discord.gg/D648uq7cth">Discord</a> or in the repository, while it's still text and not code.</p>
+    <h2 data-lang="es">Cómo se pone en marcha</h2>
+    <h2 data-lang="en">How it gets set up</h2>
+    <ol data-lang="es">
+      <li><b>Eliges la máquina revisora</b> —un servidor de la empresa o un equipo aparte— y la sumas a tu cuenta con ese papel. Se teclea un código en esa misma máquina: no basta con reenviarlo por correo.</li>
+      <li><b>Escribes las reglas</b>: qué se tacha, qué archivos no salen nunca, qué servicios de inteligencia artificial se pueden usar, qué hacer cuando no hay una regla clara y cuánto se puede gastar por día. Quedan firmadas con tu cuenta.</li>
+      <li><b>Instalas el asistente</b> en los equipos de quienes trabajan. Cada uno queda enlazado a tu cuenta y sabe a qué revisor hablarle; no hace falta configurar nada más en cada máquina.</li>
+      <li><b>Empiezas mirando</b>: los primeros días todo pasa y todo queda anotado, para ver qué se estaba enviando. Cuando las reglas te convencen, las activas.</li>
+    </ol>
+    <ol data-lang="en">
+      <li><b>Pick the reviewing machine</b> —a company server or a separate box— and add it to your account with that role. A code is typed on that very machine: forwarding it by email is not enough.</li>
+      <li><b>Write the rules</b>: what gets blanked out, which files never leave, which artificial intelligence services may be used, what to do when no rule is clear, and how much may be spent per day. They are signed with your account.</li>
+      <li><b>Install the assistant</b> on the machines of the people who work. Each one is linked to your account and knows which reviewer to talk to; nothing else to configure per machine.</li>
+      <li><b>Start by watching</b>: for the first days everything passes and everything is recorded, so you can see what was being sent. When the rules convince you, you turn them on.</li>
+    </ol>
+    <p data-lang="es">El código está a la vista: tu gente puede leerlo, compilarlo y correr las pruebas. Lo montamos contigo sobre tus máquinas y tus reglas: <b>solicita una demo</b> y lo vemos con tu caso.</p>
+    <p data-lang="en">The code is in plain sight: your people can read it, build it and run the tests. We set it up with you, on your machines and your rules: <b>request a demo</b> and we'll walk through your case.</p>
+    <p style="text-align:center; margin-top:22px">
+      <a class="cta" href="https://dotrino.com/enterprise" data-lang="es">Solicita una demo</a>
+      <a class="cta" href="https://dotrino.com/enterprise" data-lang="en">Request a demo</a>
+      <a class="cta ghost" href="https://discord.gg/D648uq7cth">Discord</a>
+    </p>
   </section>
 
   <section style="text-align:center; margin-top:32px">
-    <a class="cta" href="https://github.com/imdotrino/dotrino-middlebot">GitHub</a>
-    <a class="cta ghost" href="https://discord.gg/D648uq7cth">Discord</a>
+    <a class="cta ghost" href="https://github.com/imdotrino/dotrino-middlebot">GitHub</a>
+    <a class="cta ghost" href="https://dotrino.com/enterprise">Dotrino Enterprise</a>
     <a class="cta ghost" href="https://dotrino.com/">Dotrino</a>
   </section>
 
