@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#e0603f">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Middlebot — un revisor entre tú y la inteligencia artificial | Dotrino</title>
+<meta name="description" content="Un asistente que corre en tu computadora y no habla directo con ninguna inteligencia artificial: cada pregunta pasa antes por otro aparato tuyo que revisa qué sale, tacha lo que no debe salir y deja constancia. En desarrollo." />
+<link rel="canonical" href="https://middlebot.dotrino.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="es_ES" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta property="og:site_name" content="Dotrino" />
+<meta property="og:title" content="Middlebot — un revisor entre tú y la inteligencia artificial" />
+<meta property="og:description" content="Cada pregunta que le haces a una inteligencia artificial pasa antes por otro aparato tuyo, que revisa qué sale y deja constancia. Nada que no deba salir sale." />
+<meta property="og:url" content="https://middlebot.dotrino.com/" />
+<meta property="og:image" content="https://middlebot.dotrino.com/og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Middlebot — un revisor entre tú y la inteligencia artificial" />
+<meta name="twitter:description" content="Cada pregunta que le haces a una inteligencia artificial pasa antes por otro aparato tuyo, que revisa qué sale y deja constancia." />
+<meta name="twitter:image" content="https://middlebot.dotrino.com/og.jpg" />
+<!-- Analítica cookieless autohosteada (GoatCounter); no cuenta en localhost/LAN. -->
+<script>window.goatcounter={path:function(p){return location.hostname+p}}</script>
+<script data-goatcounter="https://goat.dotrino.com/count" async src="https://goat.dotrino.com/count.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Dotrino Middlebot",
+  "url": "https://middlebot.dotrino.com/",
+  "description": "Asistente de IA que corre en la computadora del usuario y envía cada prompt a un revisor que corre en otro aparato suyo, el único que habla con el proveedor de inteligencia artificial.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Web, Linux, macOS, Windows",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "publisher": { "@type": "Organization", "name": "Dotrino", "url": "https://dotrino.com/" }
+}
+</script>
+<style>
+  :root {
+    --mb: #e0603f;
+    --bg: #0e0b1a;
+    --panel: #171331;
+    --ink: #eee9ff;
+    --muted: #a79fce;
+    --line: #2b2450;
+    --code-bg: #0b0820;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  a { color: var(--mb); }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 24px 20px 96px; }
+  /* Topbar estándar Dotrino (§5): marca izquierda, acciones derecha (idioma + moneda). */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem;
+    padding: .7rem clamp(14px, 4vw, 22px); padding-top: calc(.7rem + env(safe-area-inset-top));
+    background: rgba(23, 19, 49, .85); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10;
+  }
+  .brand { display: flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; font-weight: 700; }
+  .brand img { width: 28px; height: 28px; border-radius: 8px; }
+  .actions { display: flex; align-items: center; gap: 10px; }
+  .lang { display: flex; gap: 6px; }
+  .lang button {
+    background: none; border: 1px solid var(--line); color: var(--muted);
+    border-radius: 8px; padding: 4px 10px; cursor: pointer; font: inherit; font-size: 14px;
+  }
+  .lang button.on { color: var(--ink); border-color: var(--mb); }
+  /* Móvil: la marca se queda a la izquierda y las acciones bajan a una segunda fila. */
+  @media (max-width: 560px) { .topbar .actions { flex-basis: 100%; justify-content: flex-end; } }
+
+  .hero { text-align: center; padding: 32px 0 8px; }
+  .logo { width: 88px; height: 88px; border-radius: 22px; }
+  h1 { font-size: clamp(28px, 6vw, 40px); margin: 16px 0 6px; }
+  .tagline { color: var(--muted); font-size: 18px; margin: 0 auto; max-width: 44ch; }
+  .claim { font-size: 20px; font-weight: 700; margin-top: 18px; }
+  h2 { font-size: 22px; margin: 40px 0 12px; }
+  h3 { font-size: 17px; margin: 18px 0 4px; }
+  p { margin: 12px 0; }
+  .badge {
+    display: inline-block; margin: 14px 0 0; padding: 5px 12px; border-radius: 999px;
+    border: 1px solid var(--mb); color: var(--mb); font-size: 13px; font-weight: 700;
+    letter-spacing: .04em; text-transform: uppercase;
+  }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; margin: 14px 0; }
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .grid .card { margin: 0; }
+  .card h3 { margin-top: 0; }
+  .card p:last-child { margin-bottom: 0; }
+  ol, ul { margin: 12px 0; padding-left: 22px; }
+  li { margin: 6px 0; }
+  code { background: var(--code-bg); padding: 2px 6px; border-radius: 6px; font-size: 0.92em; }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 16px; overflow-x: auto; font-size: 13px; line-height: 1.45;
+  }
+  pre code { background: none; padding: 0; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; display: block; overflow-x: auto; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  .warn { border-color: #b45309; background: #241a0a; }
+  .warn strong { color: #fbbf24; }
+  .cta { display: inline-block; margin: 6px 8px 6px 0; padding: 10px 18px; border-radius: 10px; background: var(--mb); color: #fff; text-decoration: none; font-weight: 600; }
+  .cta.ghost { background: none; border: 1px solid var(--line); color: var(--ink); }
+  footer { text-align: center; color: var(--muted); font-size: 14px; margin-top: 48px; }
+  [data-lang="en"] { display: none; }
+  html[lang="en"] [data-lang="es"] { display: none; }
+  html[lang="en"] [data-lang="en"] { display: revert; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="./">
+    <img src="icon.svg" alt="" width="28" height="28" onerror="this.style.display='none'">
+    <span>Middlebot</span>
+  </a>
+  <div class="actions">
+    <div class="lang" role="group" aria-label="es / en">
+      <button id="lang-es" class="on" onclick="setLang('es')">ES</button>
+      <button id="lang-en" onclick="setLang('en')">EN</button>
+    </div>
+    <dotrino-support contact href="https://ko-fi.com/dotrino" repo="imdotrino/dotrino-middlebot" discord="https://discord.gg/D648uq7cth"></dotrino-support>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <img class="logo" src="icon.svg" alt="Dotrino Middlebot" onerror="this.style.display='none'">
+    <h1>Middlebot</h1>
+    <p class="tagline" data-lang="es">Un asistente que trabaja en tu computadora y <b>no le habla directo a ninguna inteligencia artificial</b>. Lo que le preguntas pasa antes por otro aparato tuyo, que revisa qué sale.</p>
+    <p class="tagline" data-lang="en">An assistant that works on your computer and <b>never talks straight to an artificial intelligence</b>. What you ask goes first through another device of yours, which reviews what leaves.</p>
+    <p class="claim" data-lang="es">Nada que no deba salir sale.</p>
+    <p class="claim" data-lang="en">Nothing that shouldn't leave, leaves.</p>
+    <p class="badge" data-lang="es">En desarrollo</p>
+    <p class="badge" data-lang="en">In development</p>
+  </div>
+
+  <div class="card warn">
+    <p data-lang="es"><strong>Esto todavía no existe.</strong> Es la descripción completa de algo que estamos construyendo: aún no hay nada que instalar. La publicamos así, entera y por adelantado, para que se pueda discutir antes de escribir el código. Cuando se pueda usar, se anuncia aquí.</p>
+    <p data-lang="en"><strong>This doesn't exist yet.</strong> It's the full description of something we're building: there is nothing to install yet. We publish it whole and up front so it can be discussed before the code is written. When it can be used, it will be announced here.</p>
+  </div>
+
+  <!-- El problema -->
+  <section>
+    <h2 data-lang="es">Para qué sirve</h2>
+    <h2 data-lang="en">What it's for</h2>
+    <p data-lang="es">Cuando le pides algo a una inteligencia artificial, con la pregunta se va todo lo que la acompaña: el archivo que pegaste, la ruta de tus carpetas, el correo de un cliente, un número de teléfono, una clave que quedó en medio de un texto. Sale de tu computadora en un segundo y no vuelve.</p>
+    <p data-lang="en">When you ask an artificial intelligence for something, everything around the question leaves with it: the file you pasted, your folder paths, a client's email, a phone number, a key that happened to sit in the middle of some text. It leaves your computer in a second and it doesn't come back.</p>
+    <p data-lang="es">Middlebot pone un paso en el medio: <b>otro aparato tuyo</b> mira lo que está por salir, tacha lo que no debe salir, te pregunta cuando tiene dudas y anota qué se envió y cuándo. Tú sigues conversando con el asistente como siempre.</p>
+    <p data-lang="en">Middlebot puts one step in between: <b>another device of yours</b> looks at what is about to leave, blanks out what shouldn't, asks you when in doubt, and writes down what was sent and when. You keep talking to the assistant as usual.</p>
+  </section>
+
+  <!-- Las dos partes -->
+  <section>
+    <h2 data-lang="es">Dos partes, dos máquinas</h2>
+    <h2 data-lang="en">Two parts, two machines</h2>
+    <div class="grid">
+      <div class="card">
+        <h3 data-lang="es">El asistente</h3>
+        <h3 data-lang="en">The assistant</h3>
+        <p data-lang="es">Vive en la computadora donde trabajas. Se usa desde la <b>terminal</b> o desde una <b>página que se abre solo en tu propia máquina</b>. No guarda la clave de ningún servicio de inteligencia artificial, y no puede llamar a ninguno.</p>
+        <p data-lang="en">Lives on the computer where you work. You use it from the <b>terminal</b> or from a <b>page that only opens on your own machine</b>. It holds no key to any artificial intelligence service, and it cannot call one.</p>
+      </div>
+      <div class="card">
+        <h3 data-lang="es">El revisor</h3>
+        <h3 data-lang="en">The reviewer</h3>
+        <p data-lang="es">Vive en <b>otro aparato tuyo</b>. Recibe cada pregunta, decide si sale, la limpia si hace falta, y es <b>el único que habla</b> con el servicio de inteligencia artificial. Ahí queda la constancia de todo.</p>
+        <p data-lang="en">Lives on <b>another device of yours</b>. It receives every question, decides whether it leaves, cleans it if needed, and is <b>the only one that talks</b> to the artificial intelligence service. That's where the record of everything is kept.</p>
+      </div>
+    </div>
+    <p data-lang="es">Cuáles son esas dos máquinas no se configura a mano: <b>lo dice tu cuenta</b>. Cada aparato tuyo tiene un permiso firmado por ti que dice qué papel cumple, y ninguno que no esté en esa lista puede ocupar el lugar del revisor.</p>
+    <p data-lang="en">Which two machines those are isn't set by hand: <b>your account says so</b>. Each of your devices carries a permission signed by you stating its role, and nothing outside that list can take the reviewer's place.</p>
+  </section>
+
+  <!-- El clasificador, pero tuyo -->
+  <section>
+    <h2 data-lang="es">El mismo mecanismo, de tu lado</h2>
+    <h2 data-lang="en">The same mechanism, on your side</h2>
+    <p data-lang="es">Los asistentes de inteligencia artificial ya revisan cada mensaje que reciben: un programa lee el texto y lo clasifica antes de que el modelo lo procese. Middlebot usa <b>ese mismo mecanismo</b>, con dos cambios que lo cambian todo: revisa <b>antes de que tu mensaje salga</b> de tu computadora, y responde a <b>tus</b> reglas.</p>
+    <p data-lang="en">Artificial intelligence assistants already review every message they receive: a program reads the text and classifies it before the model processes it. Middlebot uses <b>that same mechanism</b>, with two changes that change everything: it reviews <b>before your message leaves</b> your computer, and it answers to <b>your</b> rules.</p>
+    <p data-lang="es">Y no lo opera un servicio central: lo opera <b>tu propia red</b> de aparatos. Tu cuenta dice cuál revisa, el mensaje viaja cifrado entre ellos y la constancia queda firmada de tu lado. Nadie más en el camino ve tus preguntas.</p>
+    <p data-lang="en">And no central service operates it: <b>your own network</b> of devices does. Your account says which one reviews, the message travels encrypted between them, and the record is signed on your side. Nobody else along the way sees your questions.</p>
+  </section>
+
+  <!-- Por qué separado -->
+  <section>
+    <h2 data-lang="es">Por qué en dos máquinas y no en una</h2>
+    <h2 data-lang="en">Why two machines and not one</h2>
+    <ul data-lang="es">
+      <li>La <b>clave del servicio de inteligencia artificial</b> nunca está en la computadora donde trabajas.</li>
+      <li>La <b>constancia</b> de lo que se envió no la guarda la misma máquina que se está revisando.</li>
+      <li>El que <b>escribe</b> la pregunta no es el que <b>decide</b> si sale. Son dos aparatos distintos y hay que pasar por los dos.</li>
+      <li>Si el revisor no está disponible, <b>no sale nada</b>: el asistente espera.</li>
+    </ul>
+    <ul data-lang="en">
+      <li>The <b>key to the artificial intelligence service</b> is never on the computer where you work.</li>
+      <li>The <b>record</b> of what was sent isn't kept by the very machine being reviewed.</li>
+      <li>Whoever <b>writes</b> the question isn't whoever <b>decides</b> if it leaves. Two separate devices, and you go through both.</li>
+      <li>If the reviewer isn't available, <b>nothing leaves</b>: the assistant waits.</li>
+    </ul>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section>
+    <h2 data-lang="es">El recorrido de una pregunta</h2>
+    <h2 data-lang="en">The path of a question</h2>
+    <pre data-lang="es"><code>tu computadora                                 otro aparato tuyo
+┌────────────────────┐                       ┌──────────────────────┐
+│ asistente          │  cerrado y firmado    │ revisor              │      servicio
+│ terminal + página  ├──────────────────────▶│ reglas + constancia  ├─────▶ de IA
+│ local              │◀───── respuesta ──────┤ (la única clave)     │
+└────────────────────┘                       └──────────────────────┘
+        sin abrir puertos en ninguna de las dos</code></pre>
+    <pre data-lang="en"><code>your computer                                  another device of yours
+┌────────────────────┐                       ┌──────────────────────┐
+│ assistant          │  sealed and signed    │ reviewer             │        AI
+│ terminal + local   ├──────────────────────▶│ rules + record       ├─────▶ service
+│ page               │◀───── answer ─────────┤ (the only key)       │
+└────────────────────┘                       └──────────────────────┘
+        no open ports on either of them</code></pre>
+    <ol data-lang="es">
+      <li>Escribes tu pregunta en la terminal o en la página local.</li>
+      <li>El asistente arma un paquete cerrado con la pregunta, los archivos que incluiste y lo que quiere hacer, y lo firma.</li>
+      <li>El paquete viaja <b>cifrado de punta a punta</b>; nadie en el camino lo lee, y ninguna de las dos máquinas abre un puerto al mundo.</li>
+      <li>El revisor comprueba que venga de tu asistente, aplica tus reglas y decide.</li>
+      <li>Solo el revisor llama al servicio de inteligencia artificial.</li>
+      <li>La respuesta vuelve; si algo se había tachado, <b>tu computadora vuelve a ponerlo</b> antes de mostrártela. Tú la lees completa; el servicio nunca vio ese dato.</li>
+      <li>Queda la constancia: qué se envió, con qué regla, a qué hora.</li>
+    </ol>
+    <ol data-lang="en">
+      <li>You write your question in the terminal or the local page.</li>
+      <li>The assistant builds a sealed package with the question, the files you included and what it wants to do, and signs it.</li>
+      <li>The package travels <b>end-to-end encrypted</b>; nobody along the way reads it, and neither machine opens a port to the world.</li>
+      <li>The reviewer checks it comes from your assistant, applies your rules, and decides.</li>
+      <li>Only the reviewer calls the artificial intelligence service.</li>
+      <li>The answer comes back; if something was blanked out, <b>your computer puts it back</b> before showing it to you. You read it whole; the service never saw that data.</li>
+      <li>The record stays: what was sent, under which rule, at what time.</li>
+    </ol>
+  </section>
+
+  <!-- Cuatro decisiones -->
+  <section>
+    <h2 data-lang="es">Las cuatro decisiones del revisor</h2>
+    <h2 data-lang="en">The reviewer's four decisions</h2>
+    <table>
+      <tr>
+        <th data-lang="es">Decisión</th><th data-lang="en">Decision</th>
+        <th data-lang="es">Qué pasa</th><th data-lang="en">What happens</th>
+      </tr>
+      <tr>
+        <td data-lang="es"><b>Pasa</b></td><td data-lang="en"><b>Passes</b></td>
+        <td data-lang="es">Sale tal cual.</td><td data-lang="en">It leaves as is.</td>
+      </tr>
+      <tr>
+        <td data-lang="es"><b>Pasa tachado</b></td><td data-lang="en"><b>Passes redacted</b></td>
+        <td data-lang="es">Lo que tus reglas marcan —correos, teléfonos, nombres, rutas, claves— se reemplaza por una marca. El dato real <b>se queda en tu computadora</b> y vuelve a su lugar cuando lees la respuesta.</td>
+        <td data-lang="en">Whatever your rules mark —emails, phones, names, paths, keys— is replaced by a placeholder. The real value <b>stays on your computer</b> and returns to its place when you read the answer.</td>
+      </tr>
+      <tr>
+        <td data-lang="es"><b>Pregunta</b></td><td data-lang="en"><b>Asks</b></td>
+        <td data-lang="es">Te muestra exactamente qué se va a enviar y espera tu visto bueno, en el otro aparato o en tu teléfono. Mientras tanto no sale nada.</td>
+        <td data-lang="en">It shows you exactly what would be sent and waits for your approval, on the other device or on your phone. Meanwhile nothing leaves.</td>
+      </tr>
+      <tr>
+        <td data-lang="es"><b>Detiene</b></td><td data-lang="en"><b>Stops</b></td>
+        <td data-lang="es">No sale, y te dice por qué.</td><td data-lang="en">It doesn't leave, and it tells you why.</td>
+      </tr>
+    </table>
+    <p data-lang="es">Las reglas las escribes tú y van <b>firmadas</b>: el revisor no acepta reglas que no vengan de tu cuenta. Dicen qué se tacha, qué archivos no salen nunca, qué servicios se pueden usar, qué hacer cuando no hay una regla clara y cuánto se puede gastar por día.</p>
+    <p data-lang="en">You write the rules and they travel <b>signed</b>: the reviewer accepts no rules that don't come from your account. They say what gets blanked out, which files never leave, which services may be used, what to do when no rule is clear, and how much may be spent per day.</p>
+  </section>
+
+  <!-- Modos -->
+  <section>
+    <h2 data-lang="es">Tres maneras de usarlo</h2>
+    <h2 data-lang="en">Three ways to use it</h2>
+    <div class="grid">
+      <div class="card">
+        <h3 data-lang="es">Solo mirar</h3>
+        <h3 data-lang="en">Watch only</h3>
+        <p data-lang="es">Todo pasa, todo queda anotado. Para empezar viendo qué estabas enviando sin cambiar nada.</p>
+        <p data-lang="en">Everything passes, everything is recorded. To start by seeing what you were sending, without changing anything.</p>
+      </div>
+      <div class="card">
+        <h3 data-lang="es">Con revisor</h3>
+        <h3 data-lang="en">With reviewer</h3>
+        <p data-lang="es">Mandan tus reglas. Si el revisor no está, no sale nada. Es la forma para la que está hecho.</p>
+        <p data-lang="en">Your rules decide. If the reviewer is down, nothing leaves. This is what it's made for.</p>
+      </div>
+      <div class="card">
+        <h3 data-lang="es">Sin salida</h3>
+        <h3 data-lang="en">No exit</h3>
+        <p data-lang="es">El revisor consulta una inteligencia artificial que corre en tus propias máquinas: la pregunta no sale de tu casa.</p>
+        <p data-lang="en">The reviewer queries an artificial intelligence running on your own machines: the question never leaves your home.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Para empresas -->
+  <section>
+    <h2 data-lang="es">En una empresa</h2>
+    <h2 data-lang="en">In a company</h2>
+    <p data-lang="es">El revisor puede ser una sola máquina de la empresa y los asistentes, los equipos de quienes trabajan. La clave del servicio de inteligencia artificial queda en un solo lugar, las reglas se escriben una vez, y queda constancia de qué información salió de la empresa y cuándo. Es la misma pieza, en la línea de <a href="https://dotrino.com/enterprise">Dotrino Enterprise</a>.</p>
+    <p data-lang="en">The reviewer can be a single company machine and the assistants, the computers of the people who work there. The key to the artificial intelligence service stays in one place, the rules are written once, and there is a record of what information left the company and when. Same piece, in the <a href="https://dotrino.com/enterprise">Dotrino Enterprise</a> line.</p>
+  </section>
+
+  <!-- Lo que no hace -->
+  <section>
+    <h2 data-lang="es">Lo que <em>no</em> hace</h2>
+    <h2 data-lang="en">What it does <em>not</em> do</h2>
+    <ul data-lang="es">
+      <li>No decide por el servicio de inteligencia artificial: <b>lo que sale, salió</b>. Middlebot cuida el borde, no lo que pasa del otro lado.</li>
+      <li>No adivina qué es sensible. Tacha lo que tus reglas describen; lo demás pasa. Por eso existe el «pregunta» y por eso queda constancia.</li>
+      <li>No es un sello de cumplimiento: no hay certificaciones ni auditorías de terceros.</li>
+      <li>Y lo de siempre: <b>ninguna app cuida lo que su dueño decide mostrar</b>. Middlebot hace que enviar sea una decisión consciente; no reemplaza la decisión.</li>
+    </ul>
+    <ul data-lang="en">
+      <li>It doesn't decide for the artificial intelligence service: <b>what leaves, left</b>. Middlebot guards the edge, not what happens on the other side.</li>
+      <li>It doesn't guess what's sensitive. It blanks out what your rules describe; the rest passes. That's why "asks" exists, and why the record is kept.</li>
+      <li>It's not a compliance seal: no certifications, no third-party audits.</li>
+      <li>And the usual: <b>no app protects what its owner chooses to show</b>. Middlebot makes sending a conscious decision; it doesn't replace the decision.</li>
+    </ul>
+  </section>
+
+  <!-- Estado -->
+  <section>
+    <h2 data-lang="es">En qué va</h2>
+    <h2 data-lang="en">Where it stands</h2>
+    <table>
+      <tr><th data-lang="es">Etapa</th><th data-lang="en">Stage</th><th data-lang="es">Estado</th><th data-lang="en">Status</th></tr>
+      <tr>
+        <td data-lang="es">Especificación y esta página</td><td data-lang="en">Specification and this page</td>
+        <td data-lang="es"><b>listo</b></td><td data-lang="en"><b>done</b></td>
+      </tr>
+      <tr>
+        <td data-lang="es">Enlace entre el asistente y el revisor, con «solo mirar»</td>
+        <td data-lang="en">Link between assistant and reviewer, with "watch only"</td>
+        <td data-lang="es">siguiente</td><td data-lang="en">next</td>
+      </tr>
+      <tr>
+        <td data-lang="es">Reglas firmadas, las cuatro decisiones y el tachado reversible</td>
+        <td data-lang="en">Signed rules, the four decisions and reversible redaction</td>
+        <td data-lang="es">previsto</td><td data-lang="en">planned</td>
+      </tr>
+      <tr>
+        <td data-lang="es">Aprobar desde el teléfono y constancia sellada</td>
+        <td data-lang="en">Approve from your phone, and a sealed record</td>
+        <td data-lang="es">previsto</td><td data-lang="en">planned</td>
+      </tr>
+      <tr>
+        <td data-lang="es">Página local completa y servicios de IA intercambiables</td>
+        <td data-lang="en">Full local page and interchangeable AI services</td>
+        <td data-lang="es">previsto</td><td data-lang="en">planned</td>
+      </tr>
+    </table>
+    <p data-lang="es">¿Te sirve, te falta algo, lo harías distinto? Escríbelo en el <a href="https://discord.gg/D648uq7cth">Discord</a> o en el repositorio, ahora que todavía es un texto y no código.</p>
+    <p data-lang="en">Useful? Missing something? Would you do it differently? Say so on <a href="https://discord.gg/D648uq7cth">Discord</a> or in the repository, while it's still text and not code.</p>
+  </section>
+
+  <section style="text-align:center; margin-top:32px">
+    <a class="cta" href="https://github.com/imdotrino/dotrino-middlebot">GitHub</a>
+    <a class="cta ghost" href="https://discord.gg/D648uq7cth">Discord</a>
+    <a class="cta ghost" href="https://dotrino.com/">Dotrino</a>
+  </section>
+
+  <footer>
+    <p>MIT · <span data-lang="es">parte del ecosistema</span><span data-lang="en">part of the</span> <a href="https://dotrino.com/">Dotrino</a><span data-lang="en"> ecosystem</span>.</p>
+  </footer>
+</div>
+
+<script type="module" src="https://cdn.jsdelivr.net/npm/@dotrino/support@0.8/src/index.js"></script>
+<script>
+  function setLang(l) {
+    document.documentElement.lang = l;
+    document.getElementById('lang-es').classList.toggle('on', l === 'es');
+    document.getElementById('lang-en').classList.toggle('on', l === 'en');
+    try { localStorage.setItem('lang', l); } catch (e) {}
+  }
+  (function () {
+    var saved;
+    try { saved = localStorage.getItem('lang'); } catch (e) {}
+    var l = saved || (navigator.language || 'es').slice(0, 2);
+    setLang(l === 'en' ? 'en' : 'es');
+  })();
+</script>
+</body>
+</html>

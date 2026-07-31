@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Dotrino Middlebot">
+  <rect width="512" height="512" rx="112" fill="#e0603f"/>
+  <!-- máquina del usuario (izquierda) -->
+  <rect x="72" y="216" width="80" height="80" rx="20" fill="#ffffff"/>
+  <!-- flecha que sale hacia la derecha -->
+  <rect x="152" y="246" width="72" height="20" fill="#ffd9cf"/>
+  <!-- puerta / revisión (centro): escudo -->
+  <path d="M256 136 l84 34 v96 c0 62 -38 100 -84 118 c-46 -18 -84 -56 -84 -118 v-96 z" fill="#ffffff"/>
+  <path d="M222 258 l24 26 l46 -56" fill="none" stroke="#e0603f" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- salida hacia la IA (derecha) -->
+  <rect x="288" y="246" width="64" height="20" fill="#ffd9cf"/>
+  <path d="M416 216 l24 40 l-24 40 z" fill="#ffffff"/>
+  <circle cx="384" cy="256" r="34" fill="#ffffff"/>
+  <path d="M384 232 l7 17 l17 7 l-17 7 l-7 17 l-7 -17 l-17 -7 l17 -7 z" fill="#e0603f"/>
+</svg>
